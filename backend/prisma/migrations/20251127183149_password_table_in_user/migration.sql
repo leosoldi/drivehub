@@ -1,0 +1,18 @@
+-- AlterTable
+ALTER TABLE `Driver` ADD COLUMN `vehicleBrand` VARCHAR(191) NULL,
+    ADD COLUMN `vehicleChassis` VARCHAR(191) NULL,
+    ADD COLUMN `vehicleColor` VARCHAR(191) NULL,
+    ADD COLUMN `vehicleEngine` VARCHAR(191) NULL,
+    ADD COLUMN `vehicleModel` VARCHAR(191) NULL,
+    ADD COLUMN `vehiclePlate` VARCHAR(191) NULL,
+    ADD COLUMN `vehicleYear` VARCHAR(191) NULL;
+
+-- AlterTable
+ALTER TABLE `Workshop` ADD COLUMN `address` VARCHAR(191) NULL,
+    ADD COLUMN `cep` VARCHAR(191) NULL,
+    ADD COLUMN `city` VARCHAR(191) NULL,
+    ADD COLUMN `cnpj` VARCHAR(191) NULL,
+    ADD COLUMN `complement` VARCHAR(191) NULL,
+    ADD COLUMN `number` VARCHAR(191) NULL,
+    ADD COLUMN `phone` VARCHAR(191) NULL,
+    ADD COLUMN `state` VARCHAR(191) NULL;

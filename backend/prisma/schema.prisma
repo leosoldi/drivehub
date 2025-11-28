@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  MOTORISTA
+  OFICINA
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  avatarUrl    String?
+  googleId     String?   @unique
+  role         UserRole
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  passwordHash String?   // ← senha dos cadastros manuais
+
+  driver   Driver?
+  workshop Workshop?
+}
+
+model Driver {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  user      User      @relation(fields: [userId], references: [id])
+
+  vehicles  Vehicle[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vehicle {
+  id                 String   @id @default(cuid())
+
+  driverId           String
+  driver             Driver   @relation(fields: [driverId], references: [id])
+
+  vehicleBrand       String
+  vehicleModel       String
+  vehicleYear        String
+  vehicleColor       String
+  vehicleEngine      String
+  vehiclePlate       String   @unique
+  vehicleChassis     String?
+  vehicleMileage     String?
+  vehicleIpvaMonth   String?
+  vehicleIpvaYear    String?
+  vehicleLicensing   String?
+  isPrimaryVehicle   Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Workshop {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Campos específicos da oficina (exemplo)
+  cnpj       String?
+  phone      String?
+  cep        String?
+  address    String?
+  number     String?
+  complement String?
+  city       String?
+  state      String?
+}
