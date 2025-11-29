@@ -13,6 +13,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
 
@@ -30,7 +31,7 @@ export default function Login() {
 
   const handleMotoristaLogin = async () => {
     if (!motoristaEmail || !motoristaPassword) {
-      alert("Por favor, preencha email e senha");
+      toast.error("Por favor, preencha email e senha");
       return;
     }
 
@@ -44,7 +45,7 @@ export default function Login() {
       setLocation(redirectPath);
     } catch (err: any) {
       console.error(err);
-      alert(
+      toast.error(
         err?.response?.data?.error ||
           err?.message ||
           "Erro ao fazer login de motorista"
@@ -54,7 +55,7 @@ export default function Login() {
 
   const handleParceiroLogin = async () => {
     if (!parceiroEmail || !parceiroPassword) {
-      alert("Por favor, preencha email e senha");
+      toast.error("Por favor, preencha email e senha");
       return;
     }
 
@@ -68,7 +69,7 @@ export default function Login() {
       setLocation(redirectPath);
     } catch (err: any) {
       console.error(err);
-      alert(
+      toast.error(
         err?.response?.data?.error ||
           err?.message ||
           "Erro ao fazer login do parceiro"
@@ -78,12 +79,12 @@ export default function Login() {
 
   async function signInWithGoogle(userType: "MOTORISTA" | "OFICINA") {
     if (!googleClientId) {
-      alert("Client ID do Google não configurado (VITE_GOOGLE_CLIENT_ID).");
+      toast.error("Client ID do Google não configurado (VITE_GOOGLE_CLIENT_ID).");
       return;
     }
 
     if (!window.google?.accounts?.id) {
-      alert(
+      toast.error(
         "SDK do Google ainda não carregou. Tente novamente em alguns segundos."
       );
       return;
@@ -98,7 +99,7 @@ export default function Login() {
           const credential = response.credential as string | undefined;
 
           if (!credential) {
-            alert("Não foi possível obter o token do Google.");
+            toast.error("Não foi possível obter o token do Google.");
             return;
           }
 
@@ -110,7 +111,7 @@ export default function Login() {
           setLocation(redirectPath);
         } catch (err) {
           console.error(err);
-          alert("Erro ao fazer login com Google.");
+          toast.error("Erro ao fazer login com Google.");
         } finally {
           setLoadingGoogle(false);
         }

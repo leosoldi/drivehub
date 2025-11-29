@@ -68,6 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(data.user);
     setToken(data.token);
 
+    localStorage.setItem("token", data.token);
+
     // data já contém redirectPath
     return data;
   }
@@ -90,6 +92,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(data.user);
     setToken(data.token);
 
+    localStorage.setItem("token", data.token);
+
     // data também contém redirectPath
     return data;
   }
@@ -98,6 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     authLogout();
     setUser(null);
     setToken(null);
+    localStorage.removeItem("token");
   }
 
   return (

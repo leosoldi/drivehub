@@ -254,7 +254,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       vehicleMileage: formData.quilometragem,
       vehicleIpvaMonth: formData.ipvaMes,
       vehicleIpvaYear: formData.ipvaAno,
-      vehicleLicensingDate: formData.licenciamento,
+      vehicleLicensing: formData.licenciamento,
       isPrimaryVehicle: formData.principal,
     };
 
